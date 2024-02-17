@@ -22,7 +22,9 @@ To get started with the project, you will need to install the following dependen
 
 ## Running the Program
 To run the program, follow these steps:
-1. Clone the repository to your local machine.
+1. Clone the repository to your local machine. 
+   
+   https://github.com/Card-Detector/Senior-Experience-Project.git
 2. Install Dependencies: Python 3.7, OpenCV, and Numpy are the only required dependencies at this time.
 3. Launch the Program: Open the project in your preferred IDE (we use Visual Studio Code) or command line, and run the `version0.py` file to start the application.
 
