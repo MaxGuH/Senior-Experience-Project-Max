@@ -1,7 +1,7 @@
 # Senior-Experience-Project
 **CS-4360 Card Detector Project**
 
-Team Members: Fred Brace, Jonathan Dye, Brooke Tippe, and Max Guzarivich
+Team Members: Fred Brace, Jonathan Dye, Brooke Menard, and Max Guzarivich
 
 This is our project for the Senior Experience class at MSUdenver. The project is a card detector Game Suite that uses a webcam to detect playing cards and display the card's rank and suit, and uses that info to assist users with various card games. The project is written in Python and uses the OpenCV library for image processing.
 
