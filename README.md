@@ -7,15 +7,12 @@ This is our project for the Senior Experience class at MSUdenver. The project is
 
 ## Version 0.0 Starting Blocks
 Our initial deliverable of the project. The project is currently in the planning phase, and we are laying the groundwork for upcoming developments.
-## Version 0.1 Starting Blocks
-Can locate multiple cards / locate shapes. No card detection for now.
 
 ## Features
 As of now, we have implemented what will be our 'starting point'.
 - Opening Splash Screen template
 - Game Selection Menu template
 - Core functionality: Captures video frames from the webcam and diplays them in a window.
-- Loacate the shape (card) [version 0.1]
   
 ## Getting Started
 To get started with the project, you will need to install the following dependencies:

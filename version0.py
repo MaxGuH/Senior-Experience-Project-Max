@@ -4,7 +4,6 @@ import threading
 import queue
 import numpy as np
 import os
-import CardDetection # Import the card detection function
 
 # global variables
 frame_queue = queue.Queue(maxsize=10)  # Queue to hold frames from the video stream
@@ -29,7 +28,7 @@ def show_opening_screen():
     cv2.waitKey(2000)  # Display the screen for 2000 milliseconds (2 seconds)
     cv2.destroyAllWindows()
 
-""" def show_menu_screen():
+def show_menu_screen():
 
     # Create a black image for the menu screen (will change later to a real menu screen)
     menu_screen = np.zeros((480, 640, 3), dtype=np.uint8)
@@ -39,11 +38,10 @@ def show_opening_screen():
     cv2.putText(menu_screen, "Game Selection Menu", (50, 50), font, 1, (255, 255, 255), 2)
     cv2.imshow("Menu", menu_screen)
     cv2.waitKey(2000)
-    cv2.destroyAllWindows() """
+    cv2.destroyAllWindows()
 
 
-def capture_frames():
-    cap = cv2.VideoCapture(0)
+def capture_frames(cap):
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
@@ -52,14 +50,9 @@ def capture_frames():
         # Only add the frame to the queue if it's not full
         if not frame_queue.full():
             frame_queue.put(frame)
-        else:
-            # If the queue is full, skip this frame
-            pass
-        cv2.waitKey(1)  # Small delay to ensure smooth video capture
-    cap.release()
 
 
-""" def detect_cards():
+def detect_cards():
     # Initialize video capture
     cap = cv2.VideoCapture(0)
     
@@ -86,26 +79,11 @@ def capture_frames():
 
     # Release resources
     cap.release()
-    cv2.destroyAllWindows() """
+    cv2.destroyAllWindows()
     
 # Main function to execute the card detection and recognition
 def main():
     show_opening_screen()
-    # Start the thread to capture frames from the webcam
-    capture_thread = threading.Thread(target=capture_frames) # , args=()
-    capture_thread.start()
-
-    while True:
-        if not frame_queue.empty():
-            frame = frame_queue.get()
-            # Process the frame for card detection
-            detected_frame = CardDetection.detect_cards(frame)
-            # Display the frame with detected cards
-            cv2.imshow('Card Detector', detected_frame)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
-    cv2.destroyAllWindows()
-    
     show_menu_screen()
     detect_cards()
 
