@@ -1,5 +1,8 @@
 import cv2
 import numpy as np
+import version0
+
+#TODO: Add original source the code came from.
 
 def detect_cards(frame):
     # Convert to grayscale
