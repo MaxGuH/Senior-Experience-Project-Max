@@ -1,4 +1,3 @@
-# To run this as a stand alone program, remove the comment at the bottom of the program
 import cv2
 import numpy as np
 import threading
@@ -12,7 +11,7 @@ def determine_larger_card(card1, card2):
         'Ten': 10, 'Nine': 9, 'Eight': 8, 'Seven': 7,
         'Six': 6, 'Five': 5, 'Four': 4, 'Three': 3,
         'Two': 2
-    }
+    } # Set a value for the back of the card
     value1 = card_values.get(card1.split('_')[0], 0)
     value2 = card_values.get(card2.split('_')[0], 0)
     return card1 if value1 > value2 else card2
@@ -125,8 +124,11 @@ def main():
     points_card1 = 26
     points_card2 = 26
     new_cards_detected = True 
+    points = 1
+    tie_flag = False
 
     while True:
+
         ret, frame = cap.read()
         if not ret:
             break
@@ -168,17 +170,40 @@ def main():
                 # Draw a blue border around both cards if they are equal
                 cv2.rectangle(frame, (x1, y1), (x1 + w1, y1 + h1), (255, 0, 0), 3)
                 cv2.rectangle(frame, (x2, y2), (x2 + w2, y2 + h2), (255, 0, 0), 3)
+
+                font = cv2.FONT_HERSHEY_SIMPLEX
+                cv2.putText(frame, 'war', (100, 100), font, 5, (0, 0, 0), 5, cv2.LINE_AA)
+    
+                cv2.imshow('Frame', frame)
+                cv2.waitKey(2000)  
+                cv2.destroyWindow('Frame')
+
+                cv2.putText(frame, '', (50, 50), font, 2, (0, 0, 0), 5, cv2.LINE_AA)
+
+                # cv2.putText(frame, 'Remove the cards from the frame', (50, 50), font, 2, (0, 0, 0), 5, cv2.LINE_AA)
+
+                # cv2.imshow('Frame', frame)
+                # cv2.waitKey(2000)
+                # cv2.destroyWindow('Frame')
+
+                points += 2
+                tie_flag = True
+
             else:
                 larger_card = determine_larger_card(card1, card2)
 
                 if new_cards_detected:
                     if larger_card == card1:
-                        points_card1 += 1
-                        points_card2 -= 1
+                        points_card1 += points
+                        points_card2 -= points
                     elif larger_card == card2:
-                        points_card1 -= 1
-                        points_card2 += 1
+                        points_card1 -= points
+                        points_card2 += points
                     new_cards_detected = False
+                    if tie_flag:
+                        points = 1
+                        tie_flag = False
+                    
 
                 # Highlight the larger card (draw a border)
                 for card, (x, y, w, h) in detected_cards:
@@ -201,4 +226,4 @@ def main():
     cap.release()
     cv2.destroyAllWindows()
 
-#main()
+main()
