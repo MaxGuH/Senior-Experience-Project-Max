@@ -83,34 +83,52 @@ def calculate_poker_probabilities(selected_cards, filtered_detected_cards):
 
     # Update probabilities based on the current hand
     pair_count = 0
+    three_count = 0
+    four_count = 0
+
     for rank, count in rank_counts.items():
         if count == 2:
             pair_count += 1
             hand_certainty['Pair'] = 100
         elif count == 3:
+            three_count += 1
             hand_certainty['Three of a Kind'] = 100
         elif count == 4:
+            four_count += 1
             hand_certainty['Four of a Kind'] = 100
 
     if pair_count == 2:
+        hand_certainty['Pair'] = 100
         hand_certainty['Two Pair'] = 100
 
+    if pair_count == 2 and three_count == 1:
+        hand_certainty['Two Pair'] = 100
+        hand_certainty['Three of a Kind'] = 100
+        hand_certainty['Full House'] = 100
+
     # Update probabilities based on the stage of the game
-    if num_community_cards == 0:  # Pre-flop
-        hand_certainty['Pair'] = max(hand_certainty['Pair'], 56.53)
-        hand_certainty['Two Pair'] = max(hand_certainty['Two Pair'], 3.60)
-        hand_certainty['Three of a Kind'] = max(hand_certainty['Three of a Kind'], 0.0918)
-        hand_certainty['Four of a Kind'] = max(hand_certainty['Four of a Kind'], 0.0051)
-    elif num_community_cards == 3:  # Flop
-        hand_certainty['Pair'] = max(hand_certainty['Pair'], 31.91)
-        hand_certainty['Two Pair'] = max(hand_certainty['Two Pair'], 0.83)
-        hand_certainty['Three of a Kind'] = max(hand_certainty['Three of a Kind'], 39.03)
-        hand_certainty['Four of a Kind'] = max(hand_certainty['Four of a Kind'], 0)
-    elif num_community_cards == 4:  # Turn
-        hand_certainty['Pair'] = max(hand_certainty['Pair'], 32.61)
-        hand_certainty['Two Pair'] = max(hand_certainty['Two Pair'], 0)
-        hand_certainty['Three of a Kind'] = max(hand_certainty['Three of a Kind'], 0)
-        hand_certainty['Four of a Kind'] = max(hand_certainty['Four of a Kind'], 0)
+    if pair_count == 0:
+        if num_community_cards == 0:  # Pre-flop
+            hand_certainty['Pair'] = max(hand_certainty['Pair'], 69.62)
+            hand_certainty['Two Pair'] = max(hand_certainty['Two Pair'], 23.41)
+            hand_certainty['Three of a Kind'] = max(hand_certainty['Three of a Kind'], 2.11)
+            hand_certainty['Four of a Kind'] = max(hand_certainty['Four of a Kind'], 0.168)
+        elif num_community_cards == 3:  # Flop
+            hand_certainty['Pair'] = max(hand_certainty['Pair'], 20.43)
+            hand_certainty['Two Pair'] = max(hand_certainty['Two Pair'], 7.02)
+            hand_certainty['Three of a Kind'] = max(hand_certainty['Three of a Kind'], 0.88)
+            hand_certainty['Four of a Kind'] = max(hand_certainty['Four of a Kind'], 0)
+        elif num_community_cards == 4:  # Turn
+            hand_certainty['Pair'] = max(hand_certainty['Pair'], 39.13)
+            hand_certainty['Two Pair'] = max(hand_certainty['Two Pair'], 0)
+            hand_certainty['Three of a Kind'] = max(hand_certainty['Three of a Kind'], 0)
+            hand_certainty['Four of a Kind'] = max(hand_certainty['Four of a Kind'], 0)
+    if pair_count == 1:
+        if num_community_cards == 0:  # Pre-flop
+            hand_certainty['Pair'] = 100
+            hand_certainty['Two Pair'] = max(hand_certainty['Two Pair'], 55.32)
+            hand_certainty['Three of a Kind'] = max(hand_certainty['Three of a Kind'], 39.20 )
+            hand_certainty['Four of a Kind'] = max(hand_certainty['Four of a Kind'], 0.354)
 
     return hand_certainty
 
@@ -124,12 +142,12 @@ def draw_card_selection_overlay(frame):
     suits = ['H', 'D', 'C', 'S']  # Hearts, Diamonds, Clubs, Spades
     values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
     card_positions.clear()
-    start_y = frame.shape[0] - 150  # Start 150 pixels from the bottom
+    start_y = frame.shape[0] - 200  # Start 150 pixels from the bottom
 
     for i, suit in enumerate(suits):
         for j, value in enumerate(values):
             card_text = f"{value}{suit}"
-            x, y = 10 + j * 25, start_y + i * 25
+            x, y = 10 + j * 40, start_y + i * 30
             cv2.putText(frame, card_text, (x, y), font, 0.5, (0, 0, 255), 1)  # Change color to red (BGR)
             card_positions.append(((x, y - 15, x + 20, y + 5), card_text))
 
@@ -331,7 +349,7 @@ def main():
             card_pos_x = 10 + i * card_spacing
 
             # Display the card name below the rectangle icon
-            cv2.putText(frame, card, (10 + i * 75, frame.shape[0] - 10), cv2.FONT_HERSHEY_TRIPLEX, 0.6, (0, 255, 0), 1)
+            cv2.putText(frame, card, (10 + i * 80, frame.shape[0] - 10), cv2.FONT_HERSHEY_TRIPLEX, 0.6, (0, 255, 0), 1)
 
 
 
@@ -341,7 +359,7 @@ def main():
 
         frame_counter += 1
         
-        # Calculate and display poker probabilities every 15 frames or if the number of selected cards changes
+        # Calculate and display poker probabilities every 30 frames or if the number of selected cards changes
         if frame_counter % 30 == 0 or len(selected_cards) != previous_card_count:
             if selected_cards:
                 print("Selected cards:", selected_cards)  # Print selected cards

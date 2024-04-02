@@ -1,6 +1,6 @@
 # this code is used to build the second set of templates i added to the model in order to increase the accuracy of the model
 # this code is captures the card image , crops and transforms it and saves it to a folder
-# I used -- to indicate a "scrap" image so I could retake multiple trials of that image. I deleted before running the model
+# I used '--' to indicate a "scrap" image so I could retake multiple trials of that image. I deleted before running the model
 
 import cv2
 import numpy as np

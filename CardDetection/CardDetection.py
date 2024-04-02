@@ -1,5 +1,5 @@
 # this is the basic card detection code that will be used to detect the cards and then pass them to the model for classification
-#  make sure to replace the model path with the path to the model on your machine  
+ 
 
 import torch
 import cv2
