@@ -9,7 +9,7 @@ This is our project for the Senior Experience class at MSU Denver. The project i
 Our implementation of the card suite. 
 
 ## Features
-The list of features that our card suite has as of Version 1.2.
+The list of features that our card suite has as of Version 1.3.
 - Opening Splash Screen with the colors of a card table
 - The game of War
 - A custom game Crazy 4's
