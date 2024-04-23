@@ -13,6 +13,7 @@ The list of features that our card suite has as of Version 1.2.
 - Opening Splash Screen with the colors of a card table
 - The game of War
 - A custom game Crazy 4's
+- Texas Hold 'em
 - A machine learning model for card detection 
   
 ## Getting Started
@@ -29,6 +30,7 @@ To run the program, follow these steps:
    
    https://github.com/Card-Detector/Senior-Experience-Project.git
 2. Install Dependencies (Python 3.7, OpenCV, Numpy, Tinker, and PyTorch)
-3. Launch the Program: Open the project in your preferred IDE (we use Visual Studio Code) or command line, and run the `selector.py` file to start the application.
+3. Download the necessary files. Those are `selector.py`, `war.py`, `Crazy4s.py`, and `TexasHoldEm.py`. You will also need the file `best_model.pth`. This is the model to get the card recognition to work
+4. Launch the Program: Open the project in your preferred IDE (we use Visual Studio Code) or command line, and run the `selector.py` file to start the application.
 
 ### Enjoy the Game Suite!
