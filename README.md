@@ -5,7 +5,7 @@ Team Members: Fred Brace, Jonathan Dye, Brooke Menard, and Max Guzarivich
 
 This is our project for the Senior Experience class at MSU Denver. The project is a card detector Game Suite that uses a webcam to detect playing cards and display the card's rank and suit, and uses that info to assist users with various card games. The project is written in Python using the OpenCV library for image processing and Machine Learning for accurate card identification.
 
-## Version 1.2: A Product with some games
+## Version 1.3: A Product with some games
 Our implementation of the card suite. 
 
 ## Features
