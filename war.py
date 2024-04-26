@@ -95,7 +95,7 @@ def load_model(model_path):
     return model
 
 def main():
-    model_path = "best_model.pth"
+    model_path = "CardDetection/best_model.pth"
     model = load_model(model_path)
     class_names = [
         'Ace_C', 'Two_C', 'Three_C', 'Four_C', 'Five_C',
@@ -114,8 +114,8 @@ def main():
     ]
 
     cap = cv2.VideoCapture(0)
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1080)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
 
     cv2.namedWindow('War Card Detector', cv2.WINDOW_NORMAL)
     cv2.setWindowProperty('War Card Detector', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)

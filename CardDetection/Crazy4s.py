@@ -73,11 +73,7 @@ transform = transforms.Compose([
     transforms.RandomRotation(degrees=10),
     transforms.ToTensor(),
 ])
-import cv2
-import numpy as np
-import torch
-from torchvision import transforms
-from PIL import Image
+
 
 def preprocess_image(image, size=(256, 256)):
     transform = transforms.Compose([
@@ -146,8 +142,8 @@ def main():
     ]
 
     cap = cv2.VideoCapture(0)
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1080)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
 
     # cv2.namedWindow('Card Detector', cv2.WINDOW_NORMAL)
     # cv2.setWindowProperty('Card Detector', cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)

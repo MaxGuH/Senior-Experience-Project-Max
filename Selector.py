@@ -1,5 +1,5 @@
 import war
-import Crazy4s
+from CardDetection import Crazy4s
 import tkinter as tk
 from tkinter import PhotoImage
 
