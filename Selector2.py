@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import PhotoImage, Toplevel, font as tkfont
 import threading
 import war
-from CardDetection import Crazy4s, TexasHoldem
+from CardDetection import Crazy4s, TexasHoldem, Blackjack
 
 def on_war_click():
     war.main()
@@ -42,6 +42,25 @@ def on_poker_click():
     def start_game():
         TexasHoldem.main()
         print("Starting Texas Hold'em...")
+        loading_window.destroy()
+
+    thread = threading.Thread(target=start_game)
+    thread.daemon = True
+    thread.start()
+    loading_window.after(8000, loading_window.destroy)
+
+def on_blackjack_click():
+    loading_window = Toplevel()
+    loading_window.title("Loading BlackJack...")
+    loading_window.attributes('-fullscreen', True)
+    loading_image = PhotoImage(file="Stuff/pokermenu.png")
+    loading_label = tk.Label(loading_window, image=loading_image)
+    loading_label.image = loading_image
+    loading_label.pack(expand=True, fill=tk.BOTH)
+
+    def start_game():
+        Blackjack.main()
+        print("Starting BlackJack...")
         loading_window.destroy()
 
     thread = threading.Thread(target=start_game)
@@ -116,7 +135,22 @@ def option3_click():
     back_button.pack(side=tk.TOP, padx=20, pady=10)
 
 def option4_click():
-    print("Black Jack selected")
+    global crazy4_option
+    crazy4_option = Toplevel()
+    crazy4_option.title("Rules of Black Jack")
+    screen_width = crazy4_option.winfo_screenwidth()
+    screen_height = crazy4_option.winfo_screenheight()
+    crazy4_option.geometry(f"{screen_width}x{screen_height}")
+    large_font = ('Verdana', 16)
+    text = "Blackjack.\nThe goal is to beat the dealer by having a hand total that does not exceed 21.\n" \
+           "Players are dealt two cards and can choose to 'Hit' to take additional cards or 'Stand' to maintain their current total.\n" \
+           "Face cards are worth 10 points, Aces can be worth 1 or 11, and all other cards are valued by their number."
+    fours_label = tk.Label(crazy4_option, text=text, font=large_font)
+    fours_label.pack(padx=20, pady=20, fill=tk.BOTH, expand=True)
+    fours_button = tk.Button(crazy4_option, text="Play Blackjack", command=on_blackjack_click, font=large_font)
+    fours_button.pack(side=tk.TOP, padx=20, pady=10)
+    back_button = tk.Button(crazy4_option, text="Back", command=back_to_menu, font=large_font)
+    back_button.pack(side=tk.TOP, padx=20, pady=10)
 
 def option5_click():
     print("Solitaire selected")
